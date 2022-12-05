@@ -10,3 +10,10 @@ export const getListCategories = () =>{
         return res.data
     })
 } 
+
+
+export const getReviewsList = () =>{
+    return nc_games_api.get("/reviews").then((res) =>{
+        return res.data
+    })
+} 

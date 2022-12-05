@@ -1,13 +1,17 @@
+import { useState } from 'react';
 import './App.css';
 import { CategoriesList } from './components/CategoriesList';
 import { Header } from './components/Header';
+import { Reviews } from './components/Reviews';
 
 
 function App() {
-  return (
+  const [loading,setLoading] = useState(true);
+  return  (
     <div>
     <Header />
-    <CategoriesList />
+    <Reviews loading={loading} setLoading={setLoading}/>
+    <CategoriesList loading={loading} setLoading={setLoading}/>
     </div> 
   )
   

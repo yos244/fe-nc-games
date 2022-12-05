@@ -1,19 +1,21 @@
 import { getListCategories } from "../api";
 import { useEffect, useState } from "react";
 
-export const CategoriesList = () => {
+
+export const CategoriesList = ({loading, setLoading}) => {
   const [catList, setCatList] = useState([]);
   useEffect(() => {
     getListCategories().then((categories) => {
-      setCatList((currCat) => {
-        return categories;
+      setCatList((cats) => {
+        setLoading(false)
+        return categories
       });
     });
   }, []);
-  console.log(catList);
-  return (
+
+  return loading ? (<p>Loading, Please wait ...</p>) : (
     <section>
-      <h2>Select a category</h2>
+      <h2>Categories</h2>
       <ul key="big-list">
         {catList.map((category, index) => {
           return (
