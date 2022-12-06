@@ -17,3 +17,7 @@ export const getReviewsList = (id) => {
 };
 
 
+export const getComments = (id) => {
+  return nc_games_api.get(`/reviews/${id}/comments`).then((res) =>{
+  return res.data})
+}
