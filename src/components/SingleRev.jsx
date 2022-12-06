@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import {
   getComments,
   getReviewsList,
-  ReviewVoteDec,
-  ReviewVoteInc,
+  reviewVoteDec,
+  reviewVoteInc,
 } from "../api";
 import { useParams } from "react-router-dom";
 
@@ -36,10 +36,13 @@ export const SingleRev = () => {
     setOneRev((currRev) => {
       return { ...oneRev, votes: oneRev.votes + 1 };
     });
-    ReviewVoteInc(oneRev)
+    reviewVoteInc(oneRev)
       .then((res) => {})
       .catch((err) => {
         alert("Request failed, please refresh the page or try again");
+        setOneRev((currRev) => {
+          return { ...oneRev, votes: oneRev.votes  };
+        });
       });
   };
 
@@ -47,16 +50,22 @@ export const SingleRev = () => {
     setOneRev((currRev) => {
       return { ...oneRev, votes: oneRev.votes - 1 };
     });
-    ReviewVoteDec(oneRev)
+    reviewVoteDec(oneRev)
       .then((res) => {})
       .catch((err) => {
         alert("Request failed, please refresh the page or try again");
+        setOneRev((currRev) => {
+          return { ...oneRev, votes: oneRev.votes };
+        });
       });
   };
 
-  console.log(oneRev.votes);
-  const handleVoteComm = () => {};
-
+  const handlePostButton = (text) => {
+    const regex = /^[^-\s][a-zA-Z0-9_\s-]+$/;
+    if (!regex.test(text)) {
+      alert("boo");
+    }
+  };
   const returnQuery = "";
 
   return loading ? (
@@ -104,7 +113,7 @@ export const SingleRev = () => {
                   Username: {com.author}
                   <p>{com.body}</p>
                   <p>Created at: {com.created_at}</p>
-                  <button onClick={handleVoteComm()}> 👍 {com.votes}</button>
+                  <button> 👍 {com.votes}</button>
                   <br></br>
                   <br></br>
                   <br></br>
@@ -112,9 +121,11 @@ export const SingleRev = () => {
               );
             })
           )}
+          <form onSubmit>
+            <input type="textbox" placeholder="Write a Comment"></input>{" "}
+            <button>Post</button>
+          </form>
         </ul>
-        <input type="textbox" placeholder="Write a Comment"></input>{" "}
-        <button>Post</button>
       </ul>
     </section>
   );

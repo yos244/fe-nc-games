@@ -23,7 +23,7 @@ export const getComments = (id) => {
 };
 
 
-export const ReviewVoteInc = (body) => {
+export const reviewVoteInc = (body) => {
   const patchedBody = {inc_votes: 1}
     return nc_games_api.patch(`/reviews/${body.review_id}`,patchedBody).then((res) => {
       return res.data;
@@ -31,7 +31,7 @@ export const ReviewVoteInc = (body) => {
   };
   
   
-  export const ReviewVoteDec = (body) => {
+  export const reviewVoteDec = (body) => {
     const patchedBody = {inc_votes: -1}
       return nc_games_api.patch(`/reviews/${body.review_id}`,patchedBody).then((res) => {
         return res.data;
