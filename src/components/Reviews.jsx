@@ -6,6 +6,7 @@ export const Reviews = ({ loading, setLoading, reviewId, setReviewId }) => {
   const [revList, setRevList] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     getReviewsList(reviewId).then((reviews) => {
       setRevList((revs) => {
         setLoading(false);
