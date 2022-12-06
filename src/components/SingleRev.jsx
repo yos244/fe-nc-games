@@ -26,7 +26,9 @@ export const SingleRev = ({ loading, setLoading }) => {
       });
     });
   }, [reviewId]);
-  const handleVote = () => {};
+  const handleVoteInc = (id) => {
+    
+  };
 
   const handleVoteComm = () => {};
   return loading ? (
@@ -43,7 +45,9 @@ export const SingleRev = ({ loading, setLoading }) => {
           <p>Category: {oneRev.category}</p>
           <p>Designer: {oneRev.designer}</p>
           <p>Posted at: {oneRev.created_at}</p>
-          <button onClick={handleVote}> 👍 {oneRev.votes}</button>
+          <p>Votes: {oneRev.votes}</p>
+          <button onClick={handleVoteInc}> 👍 </button> &nbsp;
+          <button onClick={handleVoteInc}> 👎 </button>
         </li>{" "}
         <br></br>
         <h4>Comments:</h4>

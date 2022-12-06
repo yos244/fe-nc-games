@@ -16,8 +16,15 @@ export const getReviewsList = (id) => {
   });
 };
 
-
 export const getComments = (id) => {
-  return nc_games_api.get(`/reviews/${id}/comments`).then((res) =>{
-  return res.data})
-}
+  return nc_games_api.get(`/reviews/${id}/comments`).then((res) => {
+    return res.data;
+  });
+};
+
+export const incVote = (id) => {
+  const patchBody = { increase: 1 };
+  return nc_games_api.patch(`/reviews/${id}`,patchBody).then((res) => {
+    return res.data;
+  });
+};
