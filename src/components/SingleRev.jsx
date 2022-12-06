@@ -36,19 +36,22 @@ export const SingleRev = () => {
     setOneRev((currRev) => {
       return { ...oneRev, votes: oneRev.votes + 1 };
     });
-    ReviewVoteInc(oneRev).then((res) => {});
+    ReviewVoteInc(oneRev)
+      .then((res) => {})
+      .catch((err) => {
+        alert("Request failed, please refresh the page or try again");
+      });
   };
 
   const handleVoteDec = (id) => {
-    ReviewVoteDec(oneRev).then((res) => {
-        setOneRev((currRev) => {
-          return { ...oneRev, votes: res.votes };
-        });
-      }
-    ).catch((err)=>{
-      alert("Request failed, please refresh the page or try again");
-    }
-    );
+    setOneRev((currRev) => {
+      return { ...oneRev, votes: oneRev.votes - 1 };
+    });
+    ReviewVoteDec(oneRev)
+      .then((res) => {})
+      .catch((err) => {
+        alert("Request failed, please refresh the page or try again");
+      });
   };
 
   console.log(oneRev.votes);
@@ -110,6 +113,8 @@ export const SingleRev = () => {
             })
           )}
         </ul>
+        <input type="textbox" placeholder="Write a Comment"></input>{" "}
+        <button>Post</button>
       </ul>
     </section>
   );
