@@ -19,8 +19,6 @@ function App() {
           path="/"
           element={
             <Reviews
-              loading={loading}
-              setLoading={setLoading}
               reviewId={reviewId}
               setReviewId={setReviewId}
             />

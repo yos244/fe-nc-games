@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-
 export const HomeButton = () => {
     return (
       <nav>
@@ -8,4 +7,3 @@ export const HomeButton = () => {
   </nav>
     );
   };
-

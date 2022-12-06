@@ -22,9 +22,18 @@ export const getComments = (id) => {
   });
 };
 
-export const incVote = (id) => {
-  const patchBody = { increase: 1 };
-  return nc_games_api.patch(`/reviews/${id}`,patchBody).then((res) => {
-    return res.data;
-  });
-};
+
+export const ReviewVoteInc = (body) => {
+  const patchedBody = {inc_votes: 1}
+    return nc_games_api.patch(`/reviews/${body.review_id}`,patchedBody).then((res) => {
+      return res.data;
+    });
+  };
+  
+  
+  export const ReviewVoteDec = (body) => {
+    const patchedBody = {inc_votes: -1}
+      return nc_games_api.patch(`/reviews/${body.review_id}`,patchedBody).then((res) => {
+        return res.data;
+      });
+    };
