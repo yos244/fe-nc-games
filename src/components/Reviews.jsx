@@ -1,34 +1,34 @@
 import { useEffect, useState } from "react";
 import { getReviewsList } from "../api";
+import { Routes, Route, Link, useParams } from "react-router-dom";
 
-export const Reviews = ({ loading, setLoading }) => {
+export const Reviews = ({ loading, setLoading, reviewId, setReviewId }) => {
   const [revList, setRevList] = useState([]);
 
   useEffect(() => {
-    getReviewsList().then((reviews) => {
+    getReviewsList(reviewId).then((reviews) => {
       setRevList((revs) => {
         setLoading(false);
         return reviews;
       });
     });
-  }, []);
-  console.log(revList);
+    
+  }, [reviewId]);
+
+
 
   return loading ? (
     <p>Loading, Please wait ...</p>
   ) : (
     <section>
-      <h3>Categories</h3>
+      <h3>Select a review</h3>
       <ul key="rev-list">
         {revList.map((review, index) => {
           return (
             <li key={review.review_id}>
-              <p>title: {review.title}</p>
-              <img src={review.review_img_url} alt ="" width="500" height="400"/>
-              <p>Category: {review.category}</p>
-              <p>Owner: {review.owner}</p>
-              <a href="">{}</a>
-              <p>{review.description}</p>
+              <Link to={`/reviews/${review.review_id}`} >{review.title}</Link> <br></br>
+              <img src={review.review_img_url} alt ="" width="100" height="100"/><br></br>
+              <br></br>
             </li>
           );
         })}
@@ -36,3 +36,5 @@ export const Reviews = ({ loading, setLoading }) => {
     </section>
   );
 };
+
+
