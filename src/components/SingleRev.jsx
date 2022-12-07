@@ -2,31 +2,39 @@ import { useEffect, useState } from "react";
 import {
   getComments,
   getReviewsList,
+  postComment,
   reviewVoteDec,
   reviewVoteInc,
 } from "../api";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 export const SingleRev = () => {
   const { reviewId } = useParams();
   const [oneRev, setOneRev] = useState({});
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingComm, setLoadingComm] = useState(true);
+  const [input, setInput] = useState("");
+  const { username, setUsername } = useContext(UserContext);
 
   useEffect(() => {
     setLoading(true);
     getReviewsList(reviewId)
       .then((review) => {
         setOneRev((rev) => {
+          setLoading(false)
           return review;
         });
       })
       .then(() => {
+        setLoadingComm(true)
         return getComments(reviewId);
       })
       .then((comment) => {
         setComments((comm) => {
-          setLoading(false);
+          setLoadingComm(false);
           return comment;
         });
       });
@@ -41,7 +49,7 @@ export const SingleRev = () => {
       .catch((err) => {
         alert("Request failed, please refresh the page or try again");
         setOneRev((currRev) => {
-          return { ...oneRev, votes: oneRev.votes  };
+          return { ...oneRev, votes: oneRev.votes };
         });
       });
   };
@@ -61,12 +69,21 @@ export const SingleRev = () => {
   };
 
   const handlePostButton = (text) => {
+    setLoadingComm(true)
     const regex = /^[^-\s][a-zA-Z0-9_\s-]+$/;
-    if (!regex.test(text)) {
-      alert("boo");
+    if (!regex.test(text.body)) {
+      alert("Please start typing a text");
+    } else {
+      const sentComment = {id:text.id, username: username, body: text.body };
+      postComment(sentComment).then((res) => {
+        setComments((currComm)=>{
+          setLoadingComm(false)
+          alert("Comment posted successfully")
+          return [...currComm, res]
+        })
+      });
     }
   };
-  const returnQuery = "";
 
   return loading ? (
     <p>Loading, Please wait ...</p>
@@ -108,7 +125,7 @@ export const SingleRev = () => {
             <p>No Comments</p>
           ) : (
             comments.map((com) => {
-              return (
+              return loadingComm? (<p>Loading, please wait ...</p>) : (
                 <li key={com.comment_id}>
                   Username: {com.author}
                   <p>{com.body}</p>
@@ -121,10 +138,21 @@ export const SingleRev = () => {
               );
             })
           )}
-          <form onSubmit>
-            <input type="textbox" placeholder="Write a Comment"></input>{" "}
-            <button>Post</button>
-          </form>
+          <input
+            type="textbox"
+            placeholder="Write a Comment"
+            id="comment-box"
+            onChange={(event) => {
+              setInput(event.target.value);
+            }}
+          ></input>{" "}
+          <button
+            onClick={(event) => {
+              handlePostButton({id:oneRev.review_id ,body:input});
+            }}
+          >
+            Post
+          </button>
         </ul>
       </ul>
     </section>

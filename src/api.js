@@ -37,3 +37,11 @@ export const reviewVoteInc = (body) => {
         return res.data;
       });
     };
+
+
+export const postComment = (comment) => {
+  const postedComment = {username:comment.username, body:comment.body}
+  return nc_games_api.post(`/reviews/${comment.id}/comments`,postedComment).then((res) => {
+    return res.data;
+  });
+}
