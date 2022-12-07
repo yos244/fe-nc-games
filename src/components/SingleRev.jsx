@@ -18,6 +18,7 @@ export const SingleRev = () => {
   const [loadingComm, setLoadingComm] = useState(true);
   const [input, setInput] = useState("");
   const { username, setUsername } = useContext(UserContext);
+  const [voted, setVoted] = useState(false)
 
   useEffect(() => {
     setLoading(true);
@@ -40,8 +41,14 @@ export const SingleRev = () => {
       });
   }, [reviewId]);
 
+
+
   const handleVoteInc = (id) => {
+    if (voted===true)
+    {alert("Already voted")}
+    else {
     setOneRev((currRev) => {
+      setVoted(true)
       return { ...oneRev, votes: oneRev.votes + 1 };
     });
     reviewVoteInc(oneRev)
@@ -52,9 +59,12 @@ export const SingleRev = () => {
           return { ...oneRev, votes: oneRev.votes };
         });
       });
-  };
+  }};
 
   const handleVoteDec = (id) => {
+    if (voted===true)
+    {alert("Already voted")}
+    else {
     setOneRev((currRev) => {
       return { ...oneRev, votes: oneRev.votes - 1 };
     });
@@ -66,13 +76,14 @@ export const SingleRev = () => {
           return { ...oneRev, votes: oneRev.votes };
         });
       });
-  };
+  }};
 
   const handlePostButton = (text) => {
     setLoadingComm(true)
-    const regex = /^[^-\s][a-zA-Z0-9_\s-]+$/;
+    const regex = /^(?!\s)[\s\S]*$/
     if (!regex.test(text.body)) {
       alert("Please start typing a text");
+      setLoadingComm(false)
     } else {
       const sentComment = {id:text.id, username: username, body: text.body };
       postComment(sentComment).then((res) => {
