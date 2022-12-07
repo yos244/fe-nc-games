@@ -42,7 +42,6 @@ export const SingleRev = () => {
   }, [reviewId]);
 
 
-
   const handleVoteInc = (id) => {
     if (voted===true)
     {alert("Already voted")}
@@ -90,7 +89,7 @@ export const SingleRev = () => {
         setComments((currComm)=>{
           setLoadingComm(false)
           alert("Comment posted successfully")
-          return [...currComm, res]
+          return [res,...currComm]
         })
       });
     }

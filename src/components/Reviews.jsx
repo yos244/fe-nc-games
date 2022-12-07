@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { getReviewsList } from "../api";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 
-export const Reviews = ({ reviewId, setReviewId }) => {
-  const [revList, setRevList] = useState([]);
+export const Reviews = ({revList, setRevList, reviewId, setReviewId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,7 +15,6 @@ export const Reviews = ({ reviewId, setReviewId }) => {
     });
     
   }, [reviewId]);
-
 
 
   return loading ? (
