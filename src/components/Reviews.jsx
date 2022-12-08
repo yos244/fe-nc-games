@@ -22,10 +22,10 @@ export const Reviews = ({revList, setRevList, reviewId, setReviewId }) => {
   ) : (
     <section>
       <h3>Select a review</h3>
-      <ul key="rev-list">
+      <ul key="rev-list" className="Revs">
         {revList.map((review, index) => {
           return (
-            <li key={review.review_id}>
+            <li key={review.review_id} className="single-rev">
               <Link to={`/reviews/${review.review_id}`} >{review.title}</Link> <br></br>
               <img src={review.review_img_url} alt ="" width="100" height="100"/><br></br>
               <br></br>

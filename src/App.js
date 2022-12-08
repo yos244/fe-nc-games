@@ -9,6 +9,7 @@ import { UserContext } from "./contexts/UserContext";
 import { LoggedUser } from "./components/LoggedUser";
 import { CatFilters } from "./components/CatFilters";
 import { Categories } from "./components/Categories";
+import { SortButtons } from "./components/SortButtons";
 
 function App() {
   const [revList, setRevList] = useState([]);
@@ -16,6 +17,8 @@ function App() {
   const [reviewId, setReviewId] = useState("");
   const [username, setUsername] = useState("grumpy19");
   const [innerUrl, setInnerUrl] = useState("");
+  const [sort, setSort] = useState(`name`)
+  const [order, setOrder] = useState(`asc`)
 
   return (
     <UserContext.Provider value={{ username, setUsername }}>
@@ -23,15 +26,16 @@ function App() {
         <Header />
         <LoggedUser />
         <HomeButton />
-        <Categories
+        <Categories 
           loading={loading}
           setLoading={setLoading}
           innerUrl={innerUrl}
           setInnerUrl={setInnerUrl}
         />
+        <SortButtons sort={sort} order={order} setSort={setSort} setOrder={setOrder}/>
         <Routes>
           <Route
-            path={`/categories/${innerUrl}`}
+            path={`/categories/:category`}
             element={
               <CatFilters
                 revList={revList}

@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-export const CatFilters = ({ revList, innerUrl }) => {
+export const CatFilters = ({ revList }) => {
   const [filteredRev, setFilteredRev] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeLink, setActiveLink] = useState(false);
+  const {category} = useParams()
+
 
   useEffect(() => {
     setFilteredRev((currRev) => {
       setLoading(true);
       const newList = revList.filter((rev) => {
-        if (rev.category === innerUrl) {
+        if (rev.category === category) {
           return rev;
         }
       });
+      setLoading(false);
       return newList;
     });
-    setLoading(false);
-  }, [revList, innerUrl]);
-
+  }, [revList, category]);
 
   return loading ? (
     <p>Loading list, please wait ...</p>
