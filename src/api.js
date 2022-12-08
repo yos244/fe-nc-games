@@ -55,3 +55,12 @@ export const postComment = (comment) => {
       return res.data;
     });
 };
+
+
+export const deleteComment = (id) => {
+  return nc_games_api
+  .delete(`/comments/${id}`)
+  .then((res)=>{
+    return res.data
+  })
+}
