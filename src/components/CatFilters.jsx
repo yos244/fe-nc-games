@@ -25,7 +25,7 @@ export const CatFilters = ({ revList, innerUrl }) => {
   ) : (
     <section>
       <ul key="rev-list-DeBu">
-        {filteredRev.map((review) => {
+        {filteredRev.map((review, index) => {
           return (
             <li key={review.review_id}>
               <Link to={`/reviews/${review.review_id}`}>{review.title}</Link>{" "}

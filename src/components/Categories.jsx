@@ -21,14 +21,12 @@ export const Categories = ({loading, setLoading , setInnerUrl}) => {
   return loading ? (<p>Loading, Please wait ...</p>) : (
     <section>
       <h2>Categories</h2>
-      <ul key="big-list">
+      <ul key="big-list" className="topnav">
         {catList.map((category, index) => {
           return (
-            <li key={category.slug}>
               <Link to ={`/categories/${category.slug}`} onClick={((event)=>{
                   setInnerUrl (category.slug)
               })}>{category.slug}</Link>
-            </li>
           );
         })}
       </ul>
