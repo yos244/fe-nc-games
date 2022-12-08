@@ -16,9 +16,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [reviewId, setReviewId] = useState("");
   const [username, setUsername] = useState("grumpy19");
-  const [sort, setSort] = useState(`name`);
-  const [order, setOrder] = useState(`asc`);
-
   return (
     <UserContext.Provider value={{ username, setUsername }}>
       <div>
@@ -26,12 +23,6 @@ function App() {
         <LoggedUser />
         <HomeButton />
         <Categories loading={loading} setLoading={setLoading} />
-        <SortButtons
-          sort={sort}
-          order={order}
-          setSort={setSort}
-          setOrder={setOrder}
-        />
         <Routes>
           <Route
             path={`/categories/:category`}

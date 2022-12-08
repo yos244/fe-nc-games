@@ -16,11 +16,12 @@ export const getReviewsList = (id) => {
   });
 };
 
-export const getReviews = (category) => {
-  return nc_games_api.get(`/reviews`,{params:{category:category}}).then((res) => {
+export const getReviews = (category,sort_by,order_by) => {
+  return nc_games_api.get(`/reviews`,{params:{category:category, sort_by:sort_by, order_by:order_by}}).then((res) => {
     return res.data;
   });
 };
+
 
 export const getComments = (id) => {
   return nc_games_api.get(`/reviews/${id}/comments`).then((res) => {
