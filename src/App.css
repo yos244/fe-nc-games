@@ -2,6 +2,58 @@
   text-align: center;
 }
 
+.top-stuff {
+  text-align: center;
+}
+
+
+body {
+  background-color: rgb(68, 60, 71);
+  color: #eceaf3;
+
+  height: 100%;
+  /* The image used */
+  /* background-image: url(""); */
+}
+
+
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+  color: aquamarine;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #1bbcd8e7;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: rgb(221, 221, 221);
+  color: black;
+}
+
+
+.Revs a:hover{
+  background-color: rgb(53, 106, 150);
+  color: black;
+}
+
+.single-rev:hover {
+  background-color: rgb(100, 126, 134);
+  color: black;
+}
+
+a {
+  color: hotpink;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +87,60 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: #1ca6be81;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #575757;
+}
+
+
+.dropdown:hover .dropbtn {
+  background-color: #1957db;
 }

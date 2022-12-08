@@ -16,32 +16,41 @@ export const getReviewsList = (id) => {
   });
 };
 
+export const getReviews = (category) => {
+  return nc_games_api.get(`/reviews`,{params:{category:category}}).then((res) => {
+    return res.data;
+  });
+};
+
 export const getComments = (id) => {
   return nc_games_api.get(`/reviews/${id}/comments`).then((res) => {
     return res.data;
   });
 };
 
-
 export const reviewVoteInc = (body) => {
-  const patchedBody = {inc_votes: 1}
-    return nc_games_api.patch(`/reviews/${body.review_id}`,patchedBody).then((res) => {
+  const patchedBody = { inc_votes: 1 };
+  return nc_games_api
+    .patch(`/reviews/${body.review_id}`, patchedBody)
+    .then((res) => {
       return res.data;
     });
-  };
-  
-  
-  export const reviewVoteDec = (body) => {
-    const patchedBody = {inc_votes: -1}
-      return nc_games_api.patch(`/reviews/${body.review_id}`,patchedBody).then((res) => {
-        return res.data;
-      });
-    };
+};
 
+export const reviewVoteDec = (body) => {
+  const patchedBody = { inc_votes: -1 };
+  return nc_games_api
+    .patch(`/reviews/${body.review_id}`, patchedBody)
+    .then((res) => {
+      return res.data;
+    });
+};
 
 export const postComment = (comment) => {
-  const postedComment = {username:comment.username, body:comment.body}
-  return nc_games_api.post(`/reviews/${comment.id}/comments`,postedComment).then((res) => {
-    return res.data;
-  });
-}
+  const postedComment = { username: comment.username, body: comment.body };
+  return nc_games_api
+    .post(`/reviews/${comment.id}/comments`, postedComment)
+    .then((res) => {
+      return res.data;
+    });
+};
