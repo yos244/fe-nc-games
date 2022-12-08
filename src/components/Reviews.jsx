@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
-import { getReviewsList } from "../api";
+import { getReviews, getReviewsList } from "../api";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 
-export const Reviews = ({revList, setRevList, reviewId, setReviewId }) => {
+export const Reviews = ({revList, setRevList}) => {
   const [loading, setLoading] = useState(true);
+const {category} = useParams()
+
 
   useEffect(() => {
     setLoading(true);
-    getReviewsList(reviewId).then((reviews) => {
+    getReviews(category).then((reviews) => {
       setRevList((revs) => {
         setLoading(false);
         return reviews;
       });
     });
     
-  }, [reviewId]);
-
+  }, [category]);
+ 
 
   return loading ? (
     <p>Loading, Please wait ...</p>
