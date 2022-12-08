@@ -16,7 +16,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [reviewId, setReviewId] = useState("");
   const [username, setUsername] = useState("grumpy19");
-  const [innerUrl, setInnerUrl] = useState("");
   const [sort, setSort] = useState(`name`)
   const [order, setOrder] = useState(`asc`)
 
@@ -29,8 +28,6 @@ function App() {
         <Categories 
           loading={loading}
           setLoading={setLoading}
-          innerUrl={innerUrl}
-          setInnerUrl={setInnerUrl}
         />
         <SortButtons sort={sort} order={order} setSort={setSort} setOrder={setOrder}/>
         <Routes>
@@ -39,8 +36,6 @@ function App() {
             element={
               <CatFilters
                 revList={revList}
-                innerUrl={innerUrl}
-                setInnerUrl={setInnerUrl}
               />
             }
           />
