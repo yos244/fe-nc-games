@@ -144,3 +144,13 @@ a {
 .dropdown:hover .dropbtn {
   background-color: #1957db;
 }
+
+
+.comment-delete-message { 
+  color: rgb(207, 39, 39);
+    width: 150px;
+    border: 5px solid rgb(207, 65, 29);
+    padding: 25px;
+    margin: 5px;
+    margin-bottom: 40px;
+}
