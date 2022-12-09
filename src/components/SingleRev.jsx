@@ -227,7 +227,6 @@ export const SingleRev = () => {
             id="comment-box"
             onChange={(event) => {
               setInput(event.target.value);
-              console.log(event);
               if (event.keyCode===13) {
                 setPosting(`Posting`);
                 handlePostButton({ id: oneRev.review_id, body: input });
@@ -290,7 +289,7 @@ export const SingleRev = () => {
                 <br></br>
                 <br></br>
                 <deleteb>
-                  {com.author === username ? (
+                  {com.author === username || !deleteMsg ? (
                     <button
                       className="Delete-button"
                       onClick={(event) => {
