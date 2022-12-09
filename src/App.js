@@ -7,9 +7,8 @@ import { HomeButton } from "./components/HomeButton";
 import { SingleRev } from "./components/SingleRev";
 import { UserContext } from "./contexts/UserContext";
 import { LoggedUser } from "./components/LoggedUser";
-import { CatFilters } from "./components/CatFilters";
 import { Categories } from "./components/Categories";
-import { SortButtons } from "./components/SortButtons";
+import { ErrorPage } from "./components/ErrorPage";
 
 function App() {
   const [revList, setRevList] = useState([]);
@@ -43,6 +42,7 @@ function App() {
             path="/reviews/:reviewId"
             element={<SingleRev loading={loading} setLoading={setLoading} />}
           />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </div>
     </UserContext.Provider>

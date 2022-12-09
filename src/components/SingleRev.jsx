@@ -21,6 +21,7 @@ export const SingleRev = () => {
   const { username, setUsername } = useContext(UserContext);
   const [voted, setVoted] = useState(false);
   const [deletingComm, setDeletingComm] = useState(false);
+  const [posting, setPosting] = useState(``);
 
   useEffect(() => {
     setLoading(true);
@@ -30,6 +31,10 @@ export const SingleRev = () => {
           setLoading(false);
           return review;
         });
+      })
+      .catch((err) => {
+        console.log(err.response.data.msg);
+        alert(err.response.data.msg);
       })
       .then(() => {
         setLoadingComm(true);
@@ -56,11 +61,8 @@ export const SingleRev = () => {
           return comment;
         });
       });
-      setLoadingComm(false)
+    setLoadingComm(false);
   }, [reviewId, deletingComm]);
-
-
-
 
   const handleVoteInc = (id) => {
     if (voted === true) {
@@ -105,12 +107,13 @@ export const SingleRev = () => {
     if (!regex.test(text.body)) {
       alert("Please start typing a text");
       setLoadingComm(false);
+      setPosting(``);
     } else {
       const sentComment = { id: text.id, username: username, body: text.body };
       postComment(sentComment).then((res) => {
         setComments((currComm) => {
           setLoadingComm(false);
-          alert("Comment posted successfully");
+          setPosting(``);
           return [res, ...currComm];
         });
       });
@@ -118,23 +121,23 @@ export const SingleRev = () => {
   };
 
   const handleDeleteComment = (id) => {
-    setDeletingComm(true)
-    setLoadingComm(true)
+    setDeletingComm(true);
+    setLoadingComm(true);
     deleteComment(id)
       .then((res) => {
         setDeletingComm(false);
-        setLoadingComm(false)
-        alert(`Comment deleted`)
+        setLoadingComm(false);
+        setPosting(``);
       })
       .catch((err) => {
         alert(`Could not delete comment`);
         setDeletingComm(false);
-    setLoadingComm(false)
+        setLoadingComm(false);
+        setPosting(``);
       });
   };
-console.log(`loading`,loadingComm);
-console.log(`del`,deletingComm);
 
+  const commentCode = console.log(username);
   return loading ? (
     <p>Loading, Please wait ...</p>
   ) : (
@@ -171,6 +174,29 @@ console.log(`del`,deletingComm);
         <br></br>
         <h4>Comments:</h4>
         <ul>
+          <input
+            type="textbox"
+            placeholder="Write a Comment"
+            id="comment-box"
+            onChange={(event) => {
+              setInput(event.target.value);
+            }}
+            value={input}
+          ></input>{" "}
+          <button
+            onClick={(event) => {
+              setPosting(`Posting`);
+              handlePostButton({ id: oneRev.review_id, body: input });
+              setInput(``);
+            }}
+          >
+            Post
+          </button>
+          <br></br>
+          <br></br>
+          <br></br>
+          <p>{posting}</p>
+          <br></br>
           {comments.length === 0 ? (
             <p>No Comments</p>
           ) : (
@@ -185,35 +211,29 @@ console.log(`del`,deletingComm);
                   <button> 👍 {com.votes}</button>
                   <br></br>
                   <br></br>
-                  <button
-                    className="Delete-button"
-                    onClick={(event) => {
-                      handleDeleteComment(com.comment_id);
-                    }}
-                  >
-                    Delete Comment
-                  </button>
+                  <deleteb>
+                    {com.author === username ? (
+                      <button
+                        className="Delete-button"
+                        onClick={(event) => {
+                          setPosting(`Deleting`);
+                          handleDeleteComment(com.comment_id);
+                        }}
+                      >
+                        Delete Comment
+                      </button>
+                    ) : (
+                      <p></p>
+                    )}
+                  </deleteb>
+                  <br></br>
+                  <br></br>
                   <br></br>
                   <br></br>
                 </li>
               );
             })
           )}
-          <input
-            type="textbox"
-            placeholder="Write a Comment"
-            id="comment-box"
-            onChange={(event) => {
-              setInput(event.target.value);
-            }}
-          ></input>{" "}
-          <button
-            onClick={(event) => {
-              handlePostButton({ id: oneRev.review_id, body: input });
-            }}
-          >
-            Post
-          </button>
         </ul>
       </ul>
     </section>

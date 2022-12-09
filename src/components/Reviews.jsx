@@ -14,12 +14,15 @@ export const Reviews = ({ revList, setRevList }) => {
     if (sort !== `None`) {
       sort_by = sort
     } 
-    setLoading(true);
+    setLoading(true); 
     getReviews(category,sort_by,order).then((reviews) => {
       setRevList((revs) => {
         setLoading(false); 
         return reviews;     
     });
+    }).catch((err)=>{
+      setLoading(false)
+      alert(err.response.data.msg)
     })
     
   }, [category,sort,order]);
