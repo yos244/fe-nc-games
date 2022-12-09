@@ -51,7 +51,7 @@ export const SingleRev = () => {
           return comment;
         });
       });
-  }, [reviewId, voting]);
+  }, [reviewId]);
 
   useEffect(() => {
     setLoadingComm(true);
@@ -135,7 +135,9 @@ export const SingleRev = () => {
         setDeletingComm(false);
         setLoadingComm(false);
         setPosting(``);
-        setTimeout(setDeleteMsg(false), 3000);
+        setTimeout((func)=>{
+          setDeleteMsg(false)
+        }, 3000);
       })
       .catch((err) => {
         alert(`Could not delete comment`);
@@ -225,6 +227,12 @@ export const SingleRev = () => {
             id="comment-box"
             onChange={(event) => {
               setInput(event.target.value);
+              console.log(event);
+              if (event.keyCode===13) {
+                setPosting(`Posting`);
+                handlePostButton({ id: oneRev.review_id, body: input });
+                setInput(``);
+              }
             }}
             value={input}
           ></input>{" "}
@@ -245,65 +253,64 @@ export const SingleRev = () => {
           {comments.length === 0 ? (
             <p>No Comments</p>
           ) : deleteMsg ? (
-            <p>Comment Deleted</p>
-          ) : (
-            comments.map((com) => {
-              const commDate = new Date(com.created_at);
-              const commYear = commDate.getFullYear();
-              const commMonth = commDate.getMonth() + 1;
-              const commDay = commDate.getDate();
-              let commHours = commDate.getHours();
-              const commTimeFormat = commHours >= 12 ? `PM` : `AM`;
-              if (commHours > 12) commHours -= 12;
-              let commMinutes = commDate.getMinutes();
-              if (commMinutes < 10) commMinutes = `0${commMinutes}`;
-              if (commHours < 10) commHours = `0${commHours}`;
-              return loadingComm ? (
-                <p>Loading, please wait ...</p>
-              ) : (
-                <li key={com.comment_id}>
-                  Username: {com.author}
-                  <p>{com.body}</p>
-                  <p>
-                    Created at:{" "}
-                    {commDay +
-                      "/" +
-                      commMonth +
-                      "/" +
-                      commYear +
-                      " At " +
-                      commHours +
-                      ":" +
-                      commMinutes +
-                      " " +
-                      commTimeFormat}
-                  </p>
-                  <button> 👍 {com.votes}</button>
-                  <br></br>
-                  <br></br>
-                  <deleteb>
-                    {com.author === username ? (
-                      <button
-                        className="Delete-button"
-                        onClick={(event) => {
-                          setPosting(`Deleting`);
-                          handleDeleteComment(com.comment_id);
-                        }}
-                      >
-                        Delete Comment
-                      </button>
-                    ) : (
-                      <p></p>
-                    )}
-                  </deleteb>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                </li>
-              );
-            })
-          )}
+            <p className="comment-delete-message">Comment Deleted</p>
+          ) : null}
+          {comments.map((com) => {
+            const commDate = new Date(com.created_at);
+            const commYear = commDate.getFullYear();
+            const commMonth = commDate.getMonth() + 1;
+            const commDay = commDate.getDate();
+            let commHours = commDate.getHours();
+            const commTimeFormat = commHours >= 12 ? `PM` : `AM`;
+            if (commHours > 12) commHours -= 12;
+            let commMinutes = commDate.getMinutes();
+            if (commMinutes < 10) commMinutes = `0${commMinutes}`;
+            if (commHours < 10) commHours = `0${commHours}`;
+            return loadingComm ? (
+              <p>Loading, please wait ...</p>
+            ) : (
+              <li key={com.comment_id}>
+                Username: {com.author}
+                <p>{com.body}</p>
+                <p>
+                  Created at:{" "}
+                  {commDay +
+                    "/" +
+                    commMonth +
+                    "/" +
+                    commYear +
+                    " At " +
+                    commHours +
+                    ":" +
+                    commMinutes +
+                    " " +
+                    commTimeFormat}
+                </p>
+                <button> 👍 {com.votes}</button>
+                <br></br>
+                <br></br>
+                <deleteb>
+                  {com.author === username ? (
+                    <button
+                      className="Delete-button"
+                      onClick={(event) => {
+                        setPosting(`Deleting`);
+                        handleDeleteComment(com.comment_id);
+                      }}
+                    >
+                      Delete Comment
+                    </button>
+                  ) : (
+                    <p></p>
+                  )}
+                </deleteb>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+              </li>
+            );
+          })}
         </ul>
       </ul>
     </section>
