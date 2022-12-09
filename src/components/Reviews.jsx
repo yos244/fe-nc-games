@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { getReviews, getReviewsList } from "../api";
-import { Routes, Route, Link, useParams } from "react-router-dom";
+import {  Link, useParams } from "react-router-dom";
 import { SortButtons } from "./SortButtons";
+import { WrongCat } from "./WrongCat";
+import { Routes, Route } from "react-router-dom";
+
 
 export const Reviews = ({ revList, setRevList }) => {
   const [loading, setLoading] = useState(true);
   const { category } = useParams();
   const [sort, setSort] = useState(`None`);
   const [order, setOrder] = useState(`asc`);
+const [invalidCat, setInvalidCat] = useState(false)
 
   useEffect(() => {
+    setInvalidCat(false)
     let sort_by= ``
     if (sort !== `None`) {
       sort_by = sort
@@ -22,14 +27,14 @@ export const Reviews = ({ revList, setRevList }) => {
     });
     }).catch((err)=>{
       setLoading(false)
-      alert(err.response.data.msg)
+      setInvalidCat(true)
     })
     
   }, [category,sort,order]);
 
   return loading ? (
     <p>Loading, Please wait ...</p>
-  ) : (
+  ) : ( invalidCat? (<WrongCat />) :
     <section>
       <SortButtons
         sort={sort}

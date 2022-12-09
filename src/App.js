@@ -9,6 +9,7 @@ import { UserContext } from "./contexts/UserContext";
 import { LoggedUser } from "./components/LoggedUser";
 import { Categories } from "./components/Categories";
 import { ErrorPage } from "./components/ErrorPage";
+import { WrongCat } from "./components/WrongCat";
 
 function App() {
   const [revList, setRevList] = useState([]);
@@ -43,6 +44,7 @@ function App() {
             element={<SingleRev loading={loading} setLoading={setLoading} />}
           />
           <Route path="/*" element={<ErrorPage />} />
+          <Route path="/WrongCat" element={<WrongCat/>}/>
         </Routes>
       </div>
     </UserContext.Provider>
