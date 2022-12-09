@@ -289,11 +289,12 @@ export const SingleRev = () => {
                 <br></br>
                 <br></br>
                 <deleteb>
-                  {com.author === username || !deleteMsg ? (
+                  {com.author === username && !deleteMsg ? (
                     <button
                       className="Delete-button"
                       onClick={(event) => {
                         setPosting(`Deleting`);
+                        setDeleteMsg(true)
                         handleDeleteComment(com.comment_id);
                       }}
                     >
